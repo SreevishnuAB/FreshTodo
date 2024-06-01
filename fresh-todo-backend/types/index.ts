@@ -12,12 +12,16 @@ export const enum TodoPriority{
   VeryHigh = "VERY HIGH"
 }
 
-export type Todo = {
-  id: string,
+export type TodoRequest = {
   title: string,
   details?: string,
-  priority: TodoPriority,
-  status: TodoStatus,
-  createdAt: number,
-  completedAt?: number
+  priority: TodoPriority
 }
+
+export type Todo = {
+  id: string,
+  status: TodoStatus,
+  createdAt: string,
+  completedAt?: string,
+  modifiedAt: string
+} & TodoRequest
