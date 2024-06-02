@@ -1,10 +1,10 @@
 
 import { Handlers } from "$fresh/server.ts";
+import prismaClient from "../../../../db/client.ts";
 
-import { PrismaClient } from "../../../../generated/client/deno/edge.ts";
 import { TodoRequest, TodoStatus } from "../../../../types/index.ts";
 
-const prismaClient = new PrismaClient();
+
 
 export const handler: Handlers<TodoRequest | null> = {
   async POST(_req: Request){
