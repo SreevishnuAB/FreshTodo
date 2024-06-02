@@ -1,13 +1,18 @@
-import { PrismaClient } from "../generated/client/deno/edge.ts";
 import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
+import postgres from "https://deno.land/x/postgresjs/mod.js";
+import { drizzle }  from "npm:drizzle-orm@latest/postgres-js";
+import { migrate } from 'npm:drizzle-orm@latest/postgres-js/migrator';
 
 
 
 
 const env = await load();
 
-const prismaClient = new PrismaClient({
-  datasourceUrl: "postgresql://bot_user:password@localhost:5432/fresh_todo?schema=public"
-});
+const migrationClient = postgres(env.DATABASE_URL, { max: 1 });
+// migrate(drizzle(migrationClient), ...);
 
-export default prismaClient;
+const queryClient = postgres(env.DATABASE_URL);
+
+const dbClient = drizzle(queryClient);
+
+export default dbClient;

@@ -1,10 +1,7 @@
 
 import { Handlers } from "$fresh/server.ts";
 
-import { PrismaClient } from "../../../../generated/client/deno/edge.ts";
 import { TodoRequest, TodoStatus } from "../../../../types/index.ts";
-
-const prismaClient = new PrismaClient();
 
 export const handler: Handlers<TodoRequest | null> = {
   async POST(_req: Request){
@@ -12,13 +9,7 @@ export const handler: Handlers<TodoRequest | null> = {
     console.log(`Request body: ${payload}`);
     const id = crypto.randomUUID();
     try{
-      await prismaClient.todo.create({data: {
-        id: id,
-        title: payload.title,
-        details: payload.details,
-        priority: payload.priority,
-        status: TodoStatus.Created
-      }});
+
       console.log("Todo successfully created");
       
     }
@@ -31,11 +22,7 @@ export const handler: Handlers<TodoRequest | null> = {
     const headers = new Headers();
     headers.append("Location", `/todo/${id}`);
     try{
-      const todo = await prismaClient.todo.findUnique({
-        where: {
-          id: id
-        }
-      });
+      const todo = undefined;
       return new Response(JSON.stringify(todo), {status: 201, headers: headers})
     }
     catch(error){
@@ -46,7 +33,7 @@ export const handler: Handlers<TodoRequest | null> = {
 
   async GET(_req: Request){
     try{
-      const todos = await prismaClient.todo.findMany()
+      const todos = undefined;
       return new Response(JSON.stringify(todos), {status: 200});
     }
     catch(error){
