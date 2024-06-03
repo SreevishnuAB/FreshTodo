@@ -1,4 +1,4 @@
-import { uuid, pgTable, pgEnum, timestamp, text } from "npm:drizzle-orm@latest/pg-core";
+import { uuid, pgTable, pgEnum, timestamp, text } from "drizzle-orm/pg-core";
 
 export const todoPriorityEnum = pgEnum("todopriority", ["LOW", "MEDIUM", "HIGH", "VERY HIGH"]);
 export const todoStatusEnum = pgEnum("todostatus", ["CREATED", "IN PROGRESS", "COMPLETED", "INACTIVE"]);
