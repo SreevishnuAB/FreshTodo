@@ -15,13 +15,15 @@ export const enum TodoPriority{
 export type TodoRequest = {
   title: string,
   details?: string,
-  priority: TodoPriority
+  priority?: TodoPriority
 }
+export type TodoUpdate = {status?: TodoStatus, priority?: TodoPriority, modifiedAt?: Date};
+
+export type TodoDB =  {status: TodoStatus} & TodoRequest;
 
 export type Todo = {
   id: string,
-  status: TodoStatus,
   createdAt: string,
   completedAt?: string,
   modifiedAt: string
-} & TodoRequest
+} & TodoDB

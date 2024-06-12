@@ -7,7 +7,11 @@
     "start": "deno run -A --watch=static/,routes/ dev.ts",
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
-    "update": "deno run -A -r https://fresh.deno.dev/update ."
+    "update": "deno run -A -r https://fresh.deno.dev/update .",
+    "db:setup:deps": "deno cache -r --node-modules-dir npm:drizzle-orm npm:drizzle-orm/pg-core npm:drizzle-kit npm:postgres",
+    "db:setup:generate": "deno run -A --node-modules-dir npm:drizzle-kit generate",
+    "db:setup": "deno task db:setup:deps && deno task db:setup:generate && deno task db:migrate",
+    "db:migrate": "deno run -A --node-modules-dir npm:drizzle-kit migrate"
   },
   "lint": {
     "rules": {
@@ -22,11 +26,17 @@
   ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.6.8/",
+    "$std/": "https://deno.land/std@0.216.0/",
+    "drizzle-orm": "npm:drizzle-orm@latest",
+    "drizzle-orm/postgres-js": "npm:drizzle-orm@latest/postgres-js",
+    "drizzle-orm/pg-core": "npm:drizzle-orm@latest/pg-core",
+    "drizzle-kit": "npm:drizzle-kit@latest",
+    "drizzle-kit/": "npm:/drizzle-kit@latest/",
+    "postgres": "npm:postgres",
     "preact": "https://esm.sh/preact@10.19.6",
     "preact/": "https://esm.sh/preact@10.19.6/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
-    "$std/": "https://deno.land/std@0.216.0/"
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
